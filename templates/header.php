@@ -1,5 +1,14 @@
 <?php
 include_once('function.php');
+
+//memulai session 
+session_start();
+
+//cek apabila tidak ada user yang login maka akan di redirect ke halaman login
+if(!isset($_SESSION['login'])) {
+    header("location: login.php");
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -44,8 +53,19 @@ include_once('function.php');
             </a>
 
             <!-- Divider -->
-            <hr class="sidebar-divider my-0">
+            <hr class="sidebar-divider my-0 d-none d-md-block">
 
+            <?php
+            //cek apabila ada user login maka tampilkan log out
+            if(isset($_SESSION['login'])) :
+            ?>
+            <li class="nav-item">
+                <a class="nav-link" href="logout.php">
+                    <i class="fas fa-fw fa-power-off"></i>
+                    <span>Logout</span>
+                </a>
+            </li>
+            <?php endif; ?>
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
                 <a class="nav-link" href="index.php">
@@ -138,7 +158,7 @@ include_once('function.php');
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?= isset($_SESSION['login']) && $_SESSION['login'] == true ? $_SESSION['username'] : '' ?></span></span>
                                 <img class="img-profile rounded-circle"
                                     src="img/undraw_profile.svg">
                             </a>

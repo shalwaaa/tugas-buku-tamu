@@ -1,6 +1,17 @@
 <?php
 require_once('function.php');
 include_once('templates/header.php');
+
+// Memastikan bahwa session role dan username telah di-set
+if (isset($_SESSION['role']) && isset($_SESSION['username'])) {
+    // Memeriksa peran pengguna
+    if ($_SESSION['role'] !== 'Admin') {
+        echo "<script>alert('Kamu tidak bisa mengakses halaman ini')</script>";
+        echo "<script>window.location.href='index.php'</script>";
+    }else{
+
+    }
+}
 ?>
 
 <!-- Begin Page Content -->
@@ -35,11 +46,11 @@ include_once('templates/header.php');
         } else {
         ?>
             <div class="alert alert-danger" role="alert">
-                PAssword gagal diubah!
+                Password gagal diubah!
             </div>
     <?php
         }
-    }
+    };
 
     ?>
     <!-- DataTales Example -->
